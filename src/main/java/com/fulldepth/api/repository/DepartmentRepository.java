@@ -6,4 +6,8 @@ import com.fulldepth.api.model.Department;
 
 public interface DepartmentRepository extends JpaRepository<Department, Long> {
 
+	Department getByDepartmentName(String Dname);
+	Department getByDepartmentNameIgnoreCase(String Dname);
+
+	
 }

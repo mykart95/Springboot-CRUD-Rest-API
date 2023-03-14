@@ -2,6 +2,10 @@ package com.fulldepth.api.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,16 +26,17 @@ public class DepartmentController {
 	
 	private final DepartmentService departmentService;
 	
+	private final Logger logger= LoggerFactory.getLogger(DepartmentController.class);
+	
 	public DepartmentController(DepartmentService departmentService) {
 		this.departmentService=departmentService;
 	}
 	
 	@PostMapping("/department")
 	@ResponseStatus(HttpStatus.CREATED)
-	public Department saveDepartment(@RequestBody Department dept) {
-		
+	public Department saveDepartment(@Valid @RequestBody Department dept) {
+		logger.info("inside saveDepartment");
 		return departmentService.saveDepartment(dept);
-		
 	}
 	
 	@GetMapping("/department")
@@ -57,4 +62,10 @@ public class DepartmentController {
 	public Department updateDepartment(@PathVariable("id") long deptId, @RequestBody Department dept) {
 		return departmentService.updateDepartment(deptId, dept);
 	}
+	
+	@GetMapping("/department/name/{name}")
+	public Department getDepartmentByName(@PathVariable("name") String dname) {
+		return departmentService.getDepartmentByName(dname);
+	}
+	
 }
