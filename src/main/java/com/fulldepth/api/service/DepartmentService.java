@@ -2,6 +2,7 @@ package com.fulldepth.api.service;
 
 import java.util.List;
 
+import com.fulldepth.api.error.DepartmentNotFoundException;
 import com.fulldepth.api.model.Department;
 
 public interface DepartmentService {
@@ -10,7 +11,7 @@ public interface DepartmentService {
 
 	List<Department> getDepartments();
 
-	Department getDeptById(long deptId);
+	Department getDeptById(long deptId) throws DepartmentNotFoundException;
 
 	void deleteDepartment(long id);
 

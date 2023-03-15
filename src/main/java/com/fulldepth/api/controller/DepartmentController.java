@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fulldepth.api.error.DepartmentNotFoundException;
 import com.fulldepth.api.model.Department;
 import com.fulldepth.api.service.DepartmentService;
 
@@ -46,7 +47,7 @@ public class DepartmentController {
 	}
 	
 	@GetMapping("/department/{id}")
-	public Department getDeptById(@PathVariable("id") long deptId) {
+	public Department getDeptById(@PathVariable("id") long deptId) throws DepartmentNotFoundException {
 		return departmentService.getDeptById(deptId);
 	}
 	

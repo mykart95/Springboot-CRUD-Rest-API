@@ -2,9 +2,11 @@ package com.fulldepth.api.service;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
+import com.fulldepth.api.error.DepartmentNotFoundException;
 import com.fulldepth.api.model.Department;
 import com.fulldepth.api.repository.DepartmentRepository;
 
@@ -28,9 +30,13 @@ public class DepartmentServiceImpl implements DepartmentService{
 	}
 
 	@Override
-	public Department getDeptById(long deptId) {
+	public Department getDeptById(long deptId) throws DepartmentNotFoundException {
  
-		return departmentRepository.findById(deptId).get();
+		Optional<Department> depId= departmentRepository.findById(deptId);
+		if(!depId.isPresent()) {
+			throw new DepartmentNotFoundException("Department not exits for id: "+deptId);
+		}
+		return depId.get();
 	}
 
 	@Override
